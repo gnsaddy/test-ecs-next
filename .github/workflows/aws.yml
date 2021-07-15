@@ -82,15 +82,15 @@ jobs:
               cluster: clu
               wait-for-service-stability: true
 
-         - name: Delete Image after deploy from ECR
-           env:
-              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-              aws-region: ap-south-1
-              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-              ECR_REPOSITORY: my-docker-image
-              IMAGE_TAG: ${{ github.sha }}
-           run:
-              # Deleting Image
-              echo "Print... :$ECR_REPOSITORY"
-              aws ecr list-images --repository-name $ECR_REPOSITORY
+         #  - name: Delete Image after deploy from ECR
+         #    env:
+         #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         #       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         #       aws-region: ap-south-1
+         #       ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+         #       ECR_REPOSITORY: my-docker-image
+         #       IMAGE_TAG: ${{ github.sha }}
+         #    run:
+         #       # Deleting Image
+         #       echo "Print... :$ECR_REPOSITORY"
+         #       aws ecr list-images --repository-name $ECR_REPOSITORY
