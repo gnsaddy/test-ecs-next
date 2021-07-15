@@ -90,8 +90,7 @@ jobs:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               ECR_REPOSITORY: my-docker-image
               IMAGE_TAG: ${{ github.sha }}
-           with:
-              run:
-                 # Deleting Image
-                 echo "Print... :$ECR_REPOSITORY"
-                 aws ecr list-images --repository-name $ECR_REPOSITORY
+           run:
+              # Deleting Image
+              echo "Print... :$ECR_REPOSITORY"
+              aws ecr list-images --repository-name $ECR_REPOSITORY
