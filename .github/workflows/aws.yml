@@ -61,9 +61,7 @@ jobs:
               # Build a docker container and
               # push it to ECR so that it can
               # be deployed to ECS.
-              # docker build -t my-docker-image .
-              # docker tag my-docker-image:latest public.ecr.aws/s4n3s9y4/my-docker-image:latest
-              # docker push public.ecr.aws/s4n3s9y4/my-docker-image:latest
+
               docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
               docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
               echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -73,13 +71,13 @@ jobs:
            uses: aws-actions/amazon-ecs-render-task-definition@v1
            with:
               task-definition: task-definition.json
-              container-name: ReactAppContainer
+              container-name: cont
               image: ${{ steps.build-image.outputs.image }}
 
          - name: Deploy Amazon ECS task definition
            uses: aws-actions/amazon-ecs-deploy-task-definition@v1
            with:
               task-definition: ${{ steps.task-def.outputs.task-definition }}
-              service: ReactService
-              cluster: ReactCluster
+              service: ser
+              cluster: clu
               wait-for-service-stability: true

@@ -1,13 +1,26 @@
 {
 	"ipcMode": null,
-	"executionRoleArn": null,
+	"executionRoleArn": "arn:aws:iam::027124538585:role/ecsTaskExecutionRole",
 	"containerDefinitions": [
 		{
 			"dnsSearchDomains": null,
 			"environmentFiles": null,
-			"logConfiguration": null,
+			"logConfiguration": {
+				"logDriver": "awslogs",
+				"secretOptions": null,
+				"options": {
+					"awslogs-group": "/ecs/tds",
+					"awslogs-region": "ap-south-1",
+					"awslogs-stream-prefix": "ecs"
+				}
+			},
 			"entryPoint": null,
 			"portMappings": [
+				{
+					"hostPort": 3000,
+					"protocol": "tcp",
+					"containerPort": 3000
+				},
 				{
 					"hostPort": 80,
 					"protocol": "tcp",
@@ -25,7 +38,7 @@
 			"workingDirectory": null,
 			"secrets": null,
 			"dockerSecurityOptions": null,
-			"memory": null,
+			"memory": 512,
 			"memoryReservation": null,
 			"volumesFrom": [],
 			"stopTimeout": null,
@@ -46,27 +59,63 @@
 			"dockerLabels": null,
 			"systemControls": null,
 			"privileged": null,
-			"name": "ReactAppContainer"
+			"name": "cont"
 		}
 	],
 	"placementConstraints": [],
-	"memory": "512",
+	"memory": "1024",
 	"taskRoleArn": null,
-	"compatibilities": ["EXTERNAL", "EC2"],
-	"taskDefinitionArn": "arn:aws:ecs:ap-south-1:027124538585:task-definition/deploymentContainer:1",
-	"family": "deploymentContainer",
+	"compatibilities": ["EC2", "FARGATE"],
+	"taskDefinitionArn": "arn:aws:ecs:ap-south-1:027124538585:task-definition/tds:1",
+	"family": "tds",
 	"requiresAttributes": [
 		{
 			"targetId": null,
 			"targetType": null,
 			"value": null,
+			"name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
+			"name": "ecs.capability.execution-role-awslogs"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
 			"name": "com.amazonaws.ecs.capability.ecr-auth"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
+			"name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
+			"name": "ecs.capability.execution-role-ecr-pull"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
+			"name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+		},
+		{
+			"targetId": null,
+			"targetType": null,
+			"value": null,
+			"name": "ecs.capability.task-eni"
 		}
 	],
 	"pidMode": null,
-	"requiresCompatibilities": ["EC2"],
-	"networkMode": null,
-	"cpu": "1024",
+	"requiresCompatibilities": ["FARGATE"],
+	"networkMode": "awsvpc",
+	"cpu": "512",
 	"revision": 1,
 	"status": "ACTIVE",
 	"inferenceAccelerators": null,
